@@ -43,7 +43,7 @@ variable "private_subnet1_cidr" {
     default = "10.2.3.0/24"
 }
 
-variable "private_subnet_1" {
+variable "private_subnet1" {
     default = "eu-west-2a"
 }
 
