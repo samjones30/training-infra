@@ -69,7 +69,7 @@ resource "aws_network_acl" "db-subnet-acl" {
 
   egress {
     protocol   = "tcp"
-    rule_no    = 200
+    rule_no    = 100
     action     = "allow"
     cidr_block = "${aws_vpc.infra-training-vpc.cidr_block}"
     from_port  = 3306
@@ -97,7 +97,7 @@ resource "aws_network_acl" "web-subnet-acl" {
 
   ingress {
     protocol   = "tcp"
-    rule_no    = 100
+    rule_no    = 200
     action     = "allow"
     cidr_block = "${var.cidr_internet}"
     from_port  = 443
@@ -105,8 +105,8 @@ resource "aws_network_acl" "web-subnet-acl" {
   }
 
   ingress {
-    protocol   = "ssh"
-    rule_no    = 100
+    protocol   = "tcp"
+    rule_no    = 300
     action     = "allow"
     cidr_block = "${aws_vpc.infra-training-vpc.cidr_block}"
     from_port  = 22
@@ -115,7 +115,7 @@ resource "aws_network_acl" "web-subnet-acl" {
 
   ingress {
     protocol   = "icmp"
-    rule_no    = 100
+    rule_no    = 400
     action     = "allow"
     cidr_block = "${aws_vpc.infra-training-vpc.cidr_block}"
     from_port  = -1
@@ -124,11 +124,11 @@ resource "aws_network_acl" "web-subnet-acl" {
 
   egress {
     protocol   = "tcp"
-    rule_no    = 200
+    rule_no    = 100
     action     = "allow"
     cidr_block = "${var.cidr_internet}"
     from_port  = 1024
-    to_port    = 65536
+    to_port    = 65535
   }
 
   egress {
@@ -137,7 +137,7 @@ resource "aws_network_acl" "web-subnet-acl" {
     action     = "allow"
     cidr_block = "${aws_vpc.infra-training-vpc.cidr_block}"
     from_port  = 0
-    to_port    = 65536
+    to_port    = 65535
   }
 
   tags = {
@@ -151,7 +151,7 @@ resource "aws_network_acl" "mgmt-subnet-acl" {
   subnet_ids = ["${aws_subnet.mgmt_subnet1.id}"]
 
   ingress {
-    protocol   = "ssh"
+    protocol   = "tcp"
     rule_no    = 100
     action     = "allow"
     cidr_block = "${aws_vpc.infra-training-vpc.cidr_block}"
@@ -161,7 +161,7 @@ resource "aws_network_acl" "mgmt-subnet-acl" {
 
   ingress {
     protocol   = "icmp"
-    rule_no    = 100
+    rule_no    = 200
     action     = "allow"
     cidr_block = "${aws_vpc.infra-training-vpc.cidr_block}"
     from_port  = -1
@@ -170,11 +170,11 @@ resource "aws_network_acl" "mgmt-subnet-acl" {
 
   egress {
     protocol   = "tcp"
-    rule_no    = 200
+    rule_no    = 100
     action     = "allow"
     cidr_block = "${var.cidr_internet}"
     from_port  = 0
-    to_port    = 65536
+    to_port    = 65535
   }
 
   tags = {

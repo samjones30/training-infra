@@ -19,3 +19,6 @@ resource "random_string" "db_pwd" {
  length = 16
  special = true
 }
+
+data "aws_elb_service_account" "main" {}
+data "aws_caller_identity" "current" {}

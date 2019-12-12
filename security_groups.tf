@@ -36,7 +36,7 @@ resource "aws_security_group" "web-sg" {
     ingress {
         from_port = 22
         to_port = 22
-        protocol = "ssh"
+        protocol = "tcp"
         cidr_blocks = ["${var.mgmt_subnet1_cidr}"]
     }
     ingress {
@@ -84,13 +84,13 @@ resource "aws_security_group" "mgmt-sg" {
     ingress {
         from_port = 22
         to_port = 22
-        protocol = "ssh"
+        protocol = "tcp"
         cidr_blocks = ["${var.cidr_internet}"]
     }
     egress {
         from_port = 22
         to_port = 22
-        protocol = "ssh"
+        protocol = "tcp"
         cidr_blocks = ["${var.cidr_internet}"]
     }
     egress {
@@ -120,13 +120,13 @@ resource "aws_security_group" "web-lb-sg" {
     ingress {
         from_port = 80
         to_port = 80
-        protocol = "HTTP"
+        protocol = "tcp"
         cidr_blocks = ["${var.cidr_internet}"]
     }
     egress {
         from_port = 80
         to_port = 80
-        protocol = "HTTP"
+        protocol = "tcp"
         security_groups = ["${aws_security_group.web-sg.id}"]
     }
 

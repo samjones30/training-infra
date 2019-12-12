@@ -56,7 +56,7 @@ variable "aws_key_name" {
 }
 
 variable "database_name" {
-    default = "mysql-web-db"
+    default = "mysqldb"
 }
 
 variable "database_user" {

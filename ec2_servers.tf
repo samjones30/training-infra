@@ -76,12 +76,6 @@ resource "aws_lb" "web-lb" {
 
   enable_deletion_protection = false
 
-  access_logs {
-    bucket  = "${aws_s3_bucket.s3_lb_logs.bucket}"
-    prefix  = "web-lb"
-    enabled = true
-  }
-
   tags = {
       Name = "Web load balanacer"
       Terraform = true
