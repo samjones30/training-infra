@@ -91,23 +91,47 @@ resource "aws_security_group" "mgmt-sg" {
         from_port = 22
         to_port = 22
         protocol = "ssh"
-        security_groups = ["${var.cidr_internet}"]
+        cidr_blocks = ["${var.cidr_internet}"]
     }
     egress {
         from_port = -1
         to_port = -1
         protocol = "icmp"
-        security_groups = ["${var.cidr_internet}"]
+        cidr_blocks = ["${var.cidr_internet}"]
     }
     egress {
         from_port = 3306
         to_port = 3306
         protocol = "tcp"
-        security_groups = ["${var.cidr_internet}"]
+        cidr_blocks = ["${var.cidr_internet}"]
     }
 
     tags = {
         Name = "Mgmt-sg"
+        Terraform = true
+    }
+}
+
+resource "aws_security_group" "web-lb-sg" {
+    name = "web-lb-sg"
+    description = "Allow traffic to load balancer"
+    vpc_id = "${aws_vpc.infra-training-vpc.id}"
+
+    ingress {
+        from_port = 80
+        to_port = 80
+        protocol = "HTTP"
+        cidr_blocks = ["${var.cidr_internet}"]
+    }
+    egress {
+        from_port = 80
+        to_port = 80
+        protocol = "HTTP"
+        security_groups = ["${aws_security_group.web-sg.id}"]
+    }
+
+    tags = {
+        Name = "web-lb-sg"
         Terraform = true
     }
 }

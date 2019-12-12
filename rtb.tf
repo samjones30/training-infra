@@ -25,12 +25,12 @@ resource "aws_route_table" "mgmt-rtb" {
 }
 
 resource "aws_route_table_association" "public1-rtb-assoc" {
-    subnet_id = "${aws_subnet.eu-west-2a-public.id}"
+    subnet_id = "${aws_subnet.web_subnet1.id}"
     route_table_id = "${aws_route_table.public-rtb.id}"
 }
 
 resource "aws_route_table_association" "public2-rtb-assoc" {
-    subnet_id = "${aws_subnet.eu-west-2b-public.id}"
+    subnet_id = "${aws_subnet.web_subnet2.id}"
     route_table_id = "${aws_route_table.public-rtb.id}"
 }
 
