@@ -16,8 +16,8 @@ data "aws_ami" "aws_linux_ami" {
 }
 
 resource "random_string" "db_pwd" {
- length = 16
- special = true
+  length  = 16
+  special = true
 }
 
 data "aws_elb_service_account" "main" {}

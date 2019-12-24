@@ -1,62 +1,62 @@
 resource "aws_subnet" "web_subnet1" {
-    vpc_id = "${aws_vpc.infra-training-vpc.id}"
-    availability_zone = "${var.public_subnet1}"
-    cidr_block = "${var.public_subnet1_cidr}"
-    map_public_ip_on_launch = true
-    tags = {
-        Name = "Infra Training Public Subnet 1 (eu-west-2a)"
-        Terraform = true
-    }
+  vpc_id                  = "${aws_vpc.infra-training-vpc.id}"
+  availability_zone       = "${var.public_subnet1}"
+  cidr_block              = "${var.public_subnet1_cidr}"
+  map_public_ip_on_launch = true
+  tags = {
+    Name      = "Infra Training Public Subnet 1 (eu-west-2a)"
+    Terraform = true
+  }
 }
 
 resource "aws_subnet" "web_subnet2" {
-    vpc_id = "${aws_vpc.infra-training-vpc.id}"
-    availability_zone = "${var.public_subnet2}"
-    cidr_block = "${var.public_subnet2_cidr}"
-    map_public_ip_on_launch = true
-    tags = {
-        Name = "Infra Training Public Subnet 2 (eu-west-2b)"
-        Terraform = true
-    }
+  vpc_id                  = "${aws_vpc.infra-training-vpc.id}"
+  availability_zone       = "${var.public_subnet2}"
+  cidr_block              = "${var.public_subnet2_cidr}"
+  map_public_ip_on_launch = true
+  tags = {
+    Name      = "Infra Training Public Subnet 2 (eu-west-2b)"
+    Terraform = true
+  }
 }
 
 resource "aws_subnet" "db_subnet1" {
-    vpc_id = "${aws_vpc.infra-training-vpc.id}"
-    cidr_block = "${var.private_subnet1_cidr}"
-    availability_zone = "${var.private_subnet1}"
+  vpc_id            = "${aws_vpc.infra-training-vpc.id}"
+  cidr_block        = "${var.private_subnet1_cidr}"
+  availability_zone = "${var.private_subnet1}"
 
-    tags = {
-        Name = "Infra Training Private Subnet 1 (eu-west-2a)"
-        Terraform = true
-    }
+  tags = {
+    Name      = "Infra Training Private Subnet 1 (eu-west-2a)"
+    Terraform = true
+  }
 }
 
 resource "aws_subnet" "db_subnet2" {
-    vpc_id = "${aws_vpc.infra-training-vpc.id}"
-    cidr_block = "${var.private_subnet2_cidr}"
-    availability_zone = "${var.private_subnet2}"
+  vpc_id            = "${aws_vpc.infra-training-vpc.id}"
+  cidr_block        = "${var.private_subnet2_cidr}"
+  availability_zone = "${var.private_subnet2}"
 
-    tags = {
-        Name = "Infra Training Private Subnet 2 (eu-west-2b)"
-        Terraform = true
-    }
+  tags = {
+    Name      = "Infra Training Private Subnet 2 (eu-west-2b)"
+    Terraform = true
+  }
 }
 
 resource "aws_subnet" "mgmt_subnet1" {
-    vpc_id = "${aws_vpc.infra-training-vpc.id}"
-    availability_zone = "${var.mgmt_subnet1}"
-    cidr_block = "${var.mgmt_subnet1_cidr}"
+  vpc_id            = "${aws_vpc.infra-training-vpc.id}"
+  availability_zone = "${var.mgmt_subnet1}"
+  cidr_block        = "${var.mgmt_subnet1_cidr}"
 
-    tags = {
-        Name = "Management Subnet 1 (eu-west-2a)"
-        Terraform = true
-    }
+  tags = {
+    Name      = "Management Subnet 1 (eu-west-2a)"
+    Terraform = true
+  }
 }
 
 
 resource "aws_network_acl" "db-subnet-acl" {
-  vpc_id = "${aws_vpc.infra-training-vpc.id}"
-  subnet_ids = ["${aws_subnet.db_subnet1.id}","${aws_subnet.db_subnet2.id}"]
+  vpc_id     = "${aws_vpc.infra-training-vpc.id}"
+  subnet_ids = ["${aws_subnet.db_subnet1.id}", "${aws_subnet.db_subnet2.id}"]
 
   ingress {
     protocol   = "tcp"
@@ -77,14 +77,14 @@ resource "aws_network_acl" "db-subnet-acl" {
   }
 
   tags = {
-  Name = "DB Subnet ACL"
-  Terraform = true
+    Name      = "DB Subnet ACL"
+    Terraform = true
   }
 }
 
 resource "aws_network_acl" "web-subnet-acl" {
-  vpc_id = "${aws_vpc.infra-training-vpc.id}"
-  subnet_ids = ["${aws_subnet.web_subnet1.id}","${aws_subnet.web_subnet2.id}"]
+  vpc_id     = "${aws_vpc.infra-training-vpc.id}"
+  subnet_ids = ["${aws_subnet.web_subnet1.id}", "${aws_subnet.web_subnet2.id}"]
 
   ingress {
     protocol   = "tcp"
@@ -141,13 +141,13 @@ resource "aws_network_acl" "web-subnet-acl" {
   }
 
   tags = {
-  Name = "Web Subnet ACL"
-  Terraform = true
+    Name      = "Web Subnet ACL"
+    Terraform = true
   }
 }
 
 resource "aws_network_acl" "mgmt-subnet-acl" {
-  vpc_id = "${aws_vpc.infra-training-vpc.id}"
+  vpc_id     = "${aws_vpc.infra-training-vpc.id}"
   subnet_ids = ["${aws_subnet.mgmt_subnet1.id}"]
 
   ingress {
@@ -178,7 +178,7 @@ resource "aws_network_acl" "mgmt-subnet-acl" {
   }
 
   tags = {
-  Name = "Mgmt Subnet ACL"
-  Terraform = true
+    Name      = "Mgmt Subnet ACL"
+    Terraform = true
   }
 }
