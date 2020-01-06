@@ -48,6 +48,3 @@ variable "database_user" {
 variable "ec2_instances" {
   default = "2"
 }
-
-variable "access_key" {}
-variable "secret_key" {}
