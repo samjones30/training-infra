@@ -200,7 +200,7 @@ module "db" {
   }
 
   # DB subnet group
-  subnet_ids = ["${module.vpc.database_subnets[0]}", "${module.vpc.database_subnets[1]}"]
+  subnet_ids = "${module.vpc.database_subnets}"
 
   # DB parameter group
   family = "mysql5.7"
